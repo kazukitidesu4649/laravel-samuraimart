@@ -80,7 +80,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $reviews = $product->reviews()->get();
+        $reviews = $product->reviews()->get()->paginate(5);
         
         return view('products.show', compact('product', 'reviews'));
     }
