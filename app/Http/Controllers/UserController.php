@@ -52,7 +52,7 @@ class UserController extends Controller
         $user->phone = $request->input('phone') ? $request->input('phone') : $user->phone;
         $user->update();
 
-        return to_route('mypage');
+        return to_route('mypage')->with('flash_message','会員情報を更新しました。');
     }
 
     public function update_password(Request $request)
@@ -70,7 +70,7 @@ class UserController extends Controller
             return to_route('mypage.edit_password');
         }
 
-        return to_route('mypage');
+        return to_route('mypage')->with('flash_message','パスワードを変更しました。');
     }
 
     public function edit_password()
@@ -82,7 +82,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        $favorite_products = $user->favorite_products;
+        $favorite_products = $user->favorite_products()->paginate(5);
 
         return view('users.favorite', compact('favorite_products'));
     }
@@ -90,7 +90,7 @@ class UserController extends Controller
     public function destroy(Request $request)
     {
         Auth::user()->delete();
-        return redirect('/');
+        return redirect('/')->with('flash_message','退会が完了しました。');
     }
     
     public function cart_history_index(Request $request)

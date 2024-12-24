@@ -7,9 +7,11 @@
             <div class="row">
                 <nav class="mb-2" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('top') }}">トップ</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('products.index', ['category' => $product->category->id]) }}">{{ $product->category->name }}</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ $product->category ? route('products.index', ['category' => $product->category->id]) : '#' }}">
+                            {{ optional($product->category)->name ?? 'カテゴリ不明' }}
+                            </a>
+                        </li>
                     </ol>
                 </nav>
             </div>
@@ -145,7 +147,7 @@
                                 <h3>{{ $review->title }}</h3>
                                 <p class="fs-5 mb-2"><span class="review-score-color">{{ str_repeat('★', $review->score) }}</span><span class="review-score-blank-color">{{ str_repeat('★', 5 - $review->score) }}</span></p>
                                 <p>{{$review->content}}</p>
-                                <p><span class="fw-bold me-2">{{$review->user->name}}</span><span class="text-muted">{{ $review->created_at->format('Y年m月d日') }}</span></p>
+                                <p><span class="fw-bold me-2">{{ $review->user ? $review->user->name : '匿名ユーザー' }}</span><span class="text-muted">{{ $review->created_at->format('Y年m月d日') }}</span></p>
                             </div>
                         @endforeach
 
