@@ -44,7 +44,7 @@
             @endforeach
 
             <div class="mb-4">
-                {{ $faqs->appends(request()->query()->links()) }}
+                {{ $faqs->appends(request()->query())->links() }}
             </div>
         </div>
     </div>
