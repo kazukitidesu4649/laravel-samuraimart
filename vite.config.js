@@ -5,8 +5,8 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'public/css/samuraimart.css',
-                'resources/js/app.js',
+                'resources/css/app.css',
+                'resources/js/main.js',
             ],
             refresh: true,
         }),
